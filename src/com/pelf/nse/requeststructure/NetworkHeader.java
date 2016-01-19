@@ -24,6 +24,7 @@ public class NetworkHeader {
 		Utils.setInt(sequence, struct, 2);
 		System.arraycopy(checksum, 0, this.struct, 6, 16);
 		System.arraycopy(messageData, 0, this.struct, 22, messageData.length);
+
 	}
 	
 	public byte[] getStruct() {

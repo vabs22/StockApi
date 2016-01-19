@@ -16,12 +16,12 @@ import com.pelf.server.util.Utils;
 
 
 public class BroadcastListener {
-	
+
 	public static void main(String[] args) throws UnknownHostException, IOException {
 		TimeZone.setDefault(TimeZone.getTimeZone("IST"));
 		
-		String ip = "172.19.245.176";
-		int port = 10251;
+		String ip = "179.19.245.145";
+		int port = 10252;
 		Socket echoSocket;
 		try{
 		echoSocket = new Socket(ip, port);

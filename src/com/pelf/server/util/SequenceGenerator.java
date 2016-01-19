@@ -2,7 +2,7 @@ package com.pelf.server.util;
 
 public class SequenceGenerator {
 	
-	private static int globalSeqNum = 0;
+	private static int globalSeqNum = 1;
 
 	
 	/**
