@@ -16,7 +16,7 @@ public class LBQuery {
 		this.memberId = "11456";
 		this.filler = "";
 		this.reserved = 0;
-		byte[] gmheaderbyte = new GMHeader(transactionCode).getStruct();
+		byte[] gmheaderbyte = new MessageHeader(transactionCode).getStruct();
 		struct = new byte[48];
 		System.arraycopy(gmheaderbyte, 0, this.struct, 0, 40);
 	}

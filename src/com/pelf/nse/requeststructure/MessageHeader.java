@@ -55,31 +55,17 @@ public class MessageHeader {
 	public short getMessageLen() {
 		return messageLen;
 	}
+
+	public void setAlphaChar(String alphaChar) {
+		this.alphaChar = alphaChar;
+	}
 	
 	public MessageHeader(short transactionCode) {
-		this.struct = new byte[40];
-		this.transactionCode = transactionCode;
-		this.traderId = 7814;
-		this.logTime = 0;
-		this.alphaChar = "";
-		this.errorCode = 0;
-		this.timeStamp = "0";
-		this.timeStamp1 = "0";
-		this.timeStamp2 = "0";
-		this.messageLen = 48;
+		this(transactionCode, (short)48);
 	}
 	
 	public MessageHeader(short transactionCode, short messageLength) {
-		this.struct = new byte[40];
-		this.transactionCode = transactionCode;
-		this.traderId = 7814;
-		this.logTime = 0;
-		this.alphaChar = "";
-		this.errorCode = 0;
-		this.timeStamp = "0";
-		this.timeStamp1 = "0";
-		this.timeStamp2 = "0";
-		this.messageLen = messageLength;
+		this(transactionCode, messageLength, 7814);
 	}
 	
 	public MessageHeader(short transactionCode, short messageLength, int traderId) {
