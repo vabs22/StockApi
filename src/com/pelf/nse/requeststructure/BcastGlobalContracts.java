@@ -2,7 +2,7 @@ package com.pelf.nse.requeststructure;
 
 public class BcastGlobalContracts {
 	
-	GMHeader messageHeader;
+	MessageHeader messageHeader;
 	int token;
 	String nseSymbol; // 16 bytes
 	String instName; // 6 bytes

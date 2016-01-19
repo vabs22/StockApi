@@ -49,3 +49,4 @@ private static Logger logger;
 	}
 
 }
+
