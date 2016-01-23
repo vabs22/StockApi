@@ -1,10 +1,7 @@
 package com.pelf.nse.listener;
 
-import com.pelf.nse.requeststructure.LBQuery;
-import com.pelf.nse.requeststructure.MessageHeader;
+import com.pelf.nse.requeststructure.*;
 import com.pelf.nse.requeststructure.MsSignonRequest;
-import com.pelf.nse.requeststructure.MsSignonRequest;
-import com.pelf.nse.requeststructure.NetworkHeader;
 import com.pelf.server.util.LoggerUtil;
 import com.pelf.server.util.Utils;
 
@@ -39,27 +36,57 @@ public class SignOnListener {
             echoSocket.setSoTimeout(15 * 1000);
             echoSocket.setKeepAlive(true);
 
-
-            MsSignonRequest packet  = new MsSignonRequest((short)2300 , (short) 214 , 7814 );
-            NetworkHeader networkPacket = new NetworkHeader(packet.getStruct());
+            // variables
+            InputStream dIn = echoSocket.getInputStream();
+            byte[] inNetworkPacket = new byte[500];
+            int sizeIn = 0;
+            short errorcode = 0 , transcode = 0;
+            NetworkHeader networkPacket;
             DataOutputStream outToServer = new DataOutputStream(echoSocket.getOutputStream());
+
+
+            // sign on request
+            MsSignonRequest packetSignOn  = new MsSignonRequest((short)2300 , (short) 214 , 7814 );
+            networkPacket = new NetworkHeader(packetSignOn.getStruct());
+            outToServer.write(networkPacket.getStruct());
+            outToServer.flush();
+            System.out.println(Arrays.toString(networkPacket.getStruct()));
+
+            // sign on response
+            sizeIn = dIn.read(inNetworkPacket);
+            System.out.println(sizeIn);
+            System.out.println(Arrays.toString(inNetworkPacket));
+            errorcode = Utils.getInt16(inNetworkPacket, 34);
+            transcode = Utils.getInt16(inNetworkPacket, 22);
+            System.out.println("Error code is :" + errorcode + " , transaction code is : " + transcode);
+
+            // system info request
+            MsSystemInfoRequest packetInfoRequest = new MsSystemInfoRequest((short)1600 , (short) 214 , 7814);
+            networkPacket = new NetworkHeader((packetInfoRequest.getStruct()));
             outToServer.write(networkPacket.getStruct());
             outToServer.flush();
 
-            System.out.println(Arrays.toString(networkPacket.getStruct()));
+            // system info response
+            sizeIn = dIn.read(inNetworkPacket);
+            System.out.println(sizeIn);
+            System.out.println(Arrays.toString(inNetworkPacket));
+            errorcode = Utils.getInt16(inNetworkPacket , 34);
+            transcode = Utils.getInt16(inNetworkPacket , 22);
+            System.out.println("Error code is :" + errorcode + " , transaction code is : " + transcode);
 
-            InputStream dIn = echoSocket.getInputStream();
-            byte[] inNetworkPacket = new byte[240];
-            int sizeIn = 0;
-            while ((sizeIn =  dIn.read(inNetworkPacket)) > 0) {
-                System.out.println(sizeIn);
-                System.out.println(Arrays.toString(inNetworkPacket));
-                int i;
-                System.out.println("");
-                String newstr = new String(inNetworkPacket, "UTF-8");
-                System.out.println(newstr);
-            }
-            System.out.println("sizein : " + sizeIn);
+            // sign out request
+            MessageHeader packetSignOff = new MessageHeader((short)2320 , (short) 214 , 7814);
+            networkPacket = new NetworkHeader((packetSignOff.getStruct()));
+            outToServer.write(networkPacket.getStruct());
+            outToServer.flush();
+
+            // sign off response
+            sizeIn = dIn.read(inNetworkPacket);
+            System.out.println(sizeIn);
+            System.out.println(Arrays.toString(inNetworkPacket));
+            errorcode = Utils.getInt16(inNetworkPacket , 34);
+            transcode = Utils.getInt16(inNetworkPacket , 22);
+            System.out.println("Error code is :" + errorcode + " , transaction code is : " + transcode);
 
         } catch (Exception e) {
             System.out.println("Exception : " +  e.getMessage());

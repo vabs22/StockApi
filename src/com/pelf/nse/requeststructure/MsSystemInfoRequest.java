@@ -22,8 +22,8 @@ public class MsSystemInfoRequest {
         this.struct = new byte[44];
     }
 
-    public MsSystemInfoRequest(short transactionCode , short traderId , short messageLen) throws UnsupportedEncodingException {
-        this(new MessageHeader(transactionCode , traderId , messageLen).getStruct());
+    public MsSystemInfoRequest(short transactionCode , short messageLen , int traderId) throws UnsupportedEncodingException {
+        this(new MessageHeader(transactionCode  , messageLen , traderId).getStruct());
     }
 
     public byte[] getStruct() throws  UnsupportedEncodingException{
