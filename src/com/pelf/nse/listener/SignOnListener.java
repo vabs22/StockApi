@@ -3,8 +3,11 @@ package com.pelf.nse.listener;
 import com.pelf.nse.requeststructure.LBQuery;
 import com.pelf.nse.requeststructure.MessageHeader;
 import com.pelf.nse.requeststructure.MsSignonRequest;
+import com.pelf.nse.requeststructure.MsSystemInfoData;
+import com.pelf.nse.requeststructure.MsSystemInfoRequest;
 import com.pelf.nse.requeststructure.MsSignonRequest;
 import com.pelf.nse.requeststructure.NetworkHeader;
+import com.pelf.nse.requeststructure.UpdateLocalDBIn;
 import com.pelf.server.util.LoggerUtil;
 import com.pelf.server.util.Utils;
 
@@ -49,19 +52,58 @@ public class SignOnListener {
             System.out.println(Arrays.toString(networkPacket.getStruct()));
 
             InputStream dIn = echoSocket.getInputStream();
-            byte[] inNetworkPacket = new byte[240];
+            byte[] inNetworkPacket = new byte[1240];
             int sizeIn = 0;
-            while ((sizeIn =  dIn.read(inNetworkPacket)) > 0) {
+            sizeIn =  dIn.read(inNetworkPacket);
                 System.out.println(sizeIn);
                 System.out.println(Arrays.toString(inNetworkPacket));
-                int i;
                 System.out.println("");
                 String newstr = new String(inNetworkPacket, "UTF-8");
                 System.out.println(newstr);
-            }
             System.out.println("sizein : " + sizeIn);
 
+            MsSystemInfoRequest infoPacket=new MsSystemInfoRequest((short)1600, (short)44,7814);
+            networkPacket = new NetworkHeader(infoPacket.getStruct());
+            outToServer = new DataOutputStream(echoSocket.getOutputStream());
+            outToServer.write(networkPacket.getStruct());
+            outToServer.flush();
+            
+            System.out.println(Arrays.toString(networkPacket.getStruct()));
+            inNetworkPacket = new byte[1240];
+            sizeIn = 0;
+            sizeIn =  dIn.read(inNetworkPacket);
+                System.out.println(sizeIn);
+                System.out.println(Arrays.toString(inNetworkPacket));
+                System.out.println("");
+                newstr = new String(inNetworkPacket, "UTF-8");
+                System.out.println(newstr);
+            System.out.println("sizein : " + sizeIn);
+            
+            
+            
+            UpdateLocalDBIn dbPacket=new UpdateLocalDBIn((short)7300);
+            networkPacket = new NetworkHeader(dbPacket.getStruct());
+            outToServer = new DataOutputStream(echoSocket.getOutputStream());
+            outToServer.write(networkPacket.getStruct());
+            outToServer.flush();
+            
+            System.out.println(Arrays.toString(networkPacket.getStruct()));
+            while(true){
+            inNetworkPacket = new byte[1240];
+            sizeIn = 0;
+            sizeIn =  dIn.read(inNetworkPacket);
+                System.out.println(sizeIn);
+                System.out.println(Arrays.toString(inNetworkPacket));
+                System.out.println("");
+                newstr = new String(inNetworkPacket, "UTF-8");
+                System.out.println(newstr);
+            System.out.println("sizein : " + sizeIn);
+            }
+            
         } catch (Exception e) {
+        	
+        	
+        	
             System.out.println("Exception : " +  e.getMessage());
             //LoggerUtil.getLogger().log(Level.SEVERE, "Exception in main thread", e);
         }

@@ -3,13 +3,13 @@ package com.pelf.nse.requeststructure;
 public class MsSecurityUpdateInfo {
 	byte[] struct;	//298
 	int token;		//4
-	SecInfo secInfo;	//30
+	//SecInfo secInfo;	//30
 	short perToTrade;	//2
 	long issuedCapital;	//8
 	int warnQty;		//4
 	int freezeQty;		//4
 	String creditRating;	//12
-	StSecEligibilityMarket stSecElgPerMarket;	//3
+	//StSecEligibilityMarket stSecElgPerMarket;	//3
 	short issueRate;	//2
 	int issueStartDate;	//4
 	int interestPayDate;	//4

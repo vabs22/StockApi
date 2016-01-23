@@ -23,6 +23,22 @@ public class UpdateLocalDBIn {
 		this.lastUpdateIndexTime = 0;
 		this.reqForOpenOrders = "G";
 		this.reserved = " ";
+		Utils.setShort((short)1, stMarketStatus, 0);
+		Utils.setShort((short)2, stMarketStatus, 2);
+		Utils.setShort((short)2, stMarketStatus, 4);
+		Utils.setShort((short)2, stMarketStatus, 6);
+		
+		Utils.setShort((short)2, stExMarketStatus, 0);
+		Utils.setShort((short)2, stExMarketStatus, 2);
+		Utils.setShort((short)2, stExMarketStatus, 4);
+		Utils.setShort((short)2, stExMarketStatus, 6);
+		
+		Utils.setShort((short)2, stPlMarketStatus, 0);
+		Utils.setShort((short)2, stPlMarketStatus, 2);
+		Utils.setShort((short)2, stPlMarketStatus, 4);
+		Utils.setShort((short)2, stPlMarketStatus, 6);
+		
+		
 		byte[] gmheaderbyte = new MessageHeader(transactionCode,(short)82).getStruct();
 		struct = new byte[82];
 		System.arraycopy(gmheaderbyte, 0, this.struct, 0, 40);
