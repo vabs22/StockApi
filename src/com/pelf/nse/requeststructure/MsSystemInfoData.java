@@ -36,8 +36,8 @@ public class MsSystemInfoData {
     public MsSystemInfoData(byte[] struct) throws Exception {
         byte[] structmessageHeader = new byte[40];
         byte[] structstExMarketStatus = new byte[8];
-
         this.struct = new byte[106];
+        this.stStockEligibleIndicators = new byte[2];
 
         System.arraycopy(struct , 22 , this.struct , 0 , 106);
         System.arraycopy(this.struct , 0 , structmessageHeader , 0 , 40);
@@ -72,7 +72,7 @@ public class MsSystemInfoData {
 
     }
 
-    public MessageHeader getmessageHeader(){
+    public MessageHeader getMessageHeader(){
         return messageHeader;
     }
     public StMarketStatus getStMarketStatus() {

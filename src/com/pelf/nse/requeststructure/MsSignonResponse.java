@@ -38,6 +38,8 @@ public class MsSignonResponse {
 
     public MsSignonResponse(byte[] struct) throws Exception{
         byte[] structmessageHeader = new byte[40];
+        this.struct = new byte[214];
+        this.stBrokerEligibilityPerMkt = new byte[2];
 
         System.arraycopy(struct , 22 , this.struct , 0 , 214);
         System.arraycopy(this.struct , 0 , structmessageHeader , 0 , 40);
