@@ -23,7 +23,7 @@ public class MsSystemInfoRequest {
     }
 
     public MsSystemInfoRequest(short transactionCode , short messageLen , int traderId) throws UnsupportedEncodingException {
-    	this(new MessageHeader(transactionCode , messageLen , traderId ).getStruct());
+        this(new MessageHeader(transactionCode , messageLen , traderId).getStruct());
     }
 
     public byte[] getStruct() throws  UnsupportedEncodingException{
