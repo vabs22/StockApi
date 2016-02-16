@@ -99,7 +99,7 @@ public class SignOnListener {
             System.out.println("Transaction Code is : "+transactionCode);
             if(transactionCode == (short)7304) {
             	innerTransactionCode = Utils.getInt16(inNetworkPacket, 62);
-                System.out.println("Inner Transacction Code is : "+innerTransactionCode);
+                System.out.println("Inner Transaction Code is : "+innerTransactionCode);
                 if(innerTransactionCode == (short)7324) {
                 	System.out.println("InstrumentID : "+Utils.getInt16(inNetworkPacket, 102));
                 	System.out.println("Instrument Name : "+Utils.getString(inNetworkPacket, 104, 6));
